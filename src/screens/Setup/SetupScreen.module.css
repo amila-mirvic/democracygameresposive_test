@@ -1,6 +1,7 @@
 .screen {
   width: 100%;
-  height: 100vh;
+  height: 100%;
+  min-height: 100svh;
 
   background-size: cover;
   background-position: center;
@@ -12,7 +13,8 @@
 
 .overlay {
   width: 100%;
-  height: 100vh;
+  height: 100%;
+  min-height: 100svh;
   position: relative;
 }
 
@@ -154,7 +156,6 @@
   transition:
     transform 520ms cubic-bezier(0.2, 0.8, 0.2, 1),
     box-shadow 520ms cubic-bezier(0.2, 0.8, 0.2, 1);
-  z-index: 5;
 }
 
 .playBtn:hover {
@@ -189,7 +190,6 @@
   height: 860px;
 
   pointer-events: none;
-  z-index: 1;
 }
 
 .characterBtn {
@@ -330,143 +330,64 @@
   50% { transform: translateY(-10px); }
 }
 
-/* ------------------------------------------------ */
-/* RESPONSIVE (tablet/mobile) */
 
+/* =========================
+   RESPONSIVE (Tablet/Mobile)
+   ========================= */
 @media (max-width: 1023px) {
-  .screen,
-  .overlay {
-    height: 100%;
+  .screen {
+    height: auto;
+    min-height: 100svh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: calc(18px + env(safe-area-inset-bottom));
   }
 
   .overlay {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 16px;
-    padding: calc(env(safe-area-inset-top) + 16px) 16px
-      calc(env(safe-area-inset-bottom) + 16px);
+    height: auto;
+    min-height: 100svh;
+    overflow: visible;
+    padding: 14px 14px 0;
   }
 
-  .heroCard {
-    position: relative;
-    left: auto;
-    top: auto;
-    width: min(92vw, 640px);
-    padding: 24px 20px 18px;
-    padding-bottom: 18px;
-  }
-
-  .skipLink {
-    position: relative;
-    right: auto;
-    bottom: auto;
-    align-self: flex-end;
-    margin-bottom: 6px;
-    font-size: 18px;
-  }
-
-  .description {
-    font-size: 15px;
-    max-width: 100%;
-    min-height: 0;
-  }
-
-  .input {
-    height: 52px;
-    font-size: 16px;
-  }
-
-  .playBtn {
-    position: relative;
-    left: auto;
-    bottom: auto;
-    transform: none;
+  /* make the long intro + form scrollable */
+  .descBox {
     width: 100%;
-    height: 68px;
-    font-size: 24px;
-    letter-spacing: 1px;
+    max-width: 720px;
+    height: auto;
+    max-height: none;
+    padding: 18px 16px;
+  }
+
+  .nameLabel {
     margin-top: 14px;
   }
 
-  .playBtn:hover {
-    transform: none;
+  .nameInput {
+    width: 100%;
   }
 
-  .charactersArea {
-    position: relative;
-    right: auto;
-    top: auto;
-    width: min(92vw, 640px);
+  /* character selector: keep touch-friendly */
+  .charPicker {
+    width: 100%;
+    max-width: 720px;
     height: auto;
-    display: flex;
-    justify-content: center;
-    gap: 14px;
-    pointer-events: auto;
-  }
-
-  .hitboxLayer {
-    display: none;
-  }
-
-  .characterBtn {
-    position: relative;
-    left: auto;
-    top: auto;
-    bottom: auto;
-    opacity: 1;
-  }
-
-  .femaleBtn,
-  .maleBtn {
-    left: auto;
-    top: auto;
-  }
-
-  .femaleBtn.isSelected,
-  .maleBtn.isSelected {
-    bottom: auto;
-  }
-
-  .imgCrop,
-  .cropSelected {
-    overflow: hidden;
-    border-radius: 18px;
   }
 
   .characterImg {
-    height: min(46vh, 440px);
+    height: min(420px, 44vh);
   }
 
-  .femaleImg,
-  .maleImg {
-    transform: none;
-  }
-}
-
-@media (max-width: 768px) {
-  .overlay {
-    gap: 12px;
-  }
-
-  .characterImg {
-    height: min(42vh, 380px);
-  }
-}
-
-@media (max-width: 478px) {
-  .heroCard {
-    border-radius: 22px;
-  }
-
+  /* PLAY must always be reachable */
   .playBtn {
-    height: 62px;
-    font-size: 22px;
-  }
-
-  .charactersArea {
-    gap: 10px;
+    position: sticky;
+    left: 0;
+    bottom: env(safe-area-inset-bottom);
+    transform: none;
+    width: 100%;
+    max-width: 720px;
+    margin: 14px auto 0;
+    display: block;
   }
 }
-

@@ -1,6 +1,7 @@
 .screen {
   width: 100%;
-  height: 100vh;
+  height: 100%;
+  min-height: 100svh;
 
   background-image: var(--bg);
   background-size: cover;
@@ -11,10 +12,10 @@
   overflow: hidden;
 }
 
-
 .overlay {
   width: 100%;
-  height: 100vh;
+  height: 100%;
+  min-height: 100svh;
   position: relative;
 }
 
@@ -305,87 +306,33 @@
   color: #1d1d1d;
 }
 
-/* ------------------------------------------------ */
-/* RESPONSIVE (tablet/mobile) */
 
 @media (max-width: 1023px) {
-  .screen,
-  .overlay {
-    height: 100%;
-  }
-
-  .overlay {
-    padding: calc(env(safe-area-inset-top) + 14px) 14px
-      calc(env(safe-area-inset-bottom) + 14px);
-  }
-
-  .bubble {
-    position: relative;
-    right: auto;
-    top: auto;
-    width: 100%;
+  .screen, .overlay {
     height: auto;
-    padding: 14px 16px;
-    margin-bottom: 12px;
+    min-height: 100svh;
+    overflow: visible;
   }
 
-  .bubbleText {
-    font-size: 16px;
-    line-height: 1.3;
-  }
-
-  .taskRail {
-    position: relative;
-    left: auto;
-    top: auto;
-    width: 100%;
-    gap: 16px;
+  .overlay {
+    padding: 14px 12px calc(14px + env(safe-area-inset-bottom));
+    gap: 18px;
   }
 
   .taskItem {
     width: 100%;
-    grid-template-columns: 96px 1fr;
-    column-gap: 14px;
-    align-items: center;
+    max-width: 720px;
+    grid-template-columns: 120px 1fr;
+    column-gap: 16px;
   }
 
-  .taskIconWrap,
-  .taskIcon {
-    width: 96px;
-    height: 96px;
+  .taskIconWrap {
+    width: 110px;
+    height: 110px;
   }
 
   .taskBtn {
-    height: 64px;
-    font-size: 15px;
-    padding: 0 16px;
-  }
-
-  .characterWrap {
-    display: none;
-  }
-
-  .achBtn {
-    top: 14px;
-    right: 14px;
-  }
-
-  .achPanel {
-    right: 14px;
-    width: min(92vw, 560px);
-  }
-}
-
-@media (max-width: 478px) {
-  .taskItem {
-    grid-template-columns: 84px 1fr;
-  }
-  .taskIconWrap,
-  .taskIcon {
-    width: 84px;
-    height: 84px;
-  }
-  .taskBtn {
-    height: 60px;
+    width: 100%;
+    max-width: 720px;
   }
 }

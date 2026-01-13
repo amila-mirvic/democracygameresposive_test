@@ -1,9 +1,10 @@
 .viewport {
   position: relative;
   width: 100vw;
-  /* Use small-viewport units on mobile so browser UI doesn't crop content */
-  height: 100svh;
-  min-height: 100vh;
+  height: 100vh;
+  min-height: 100svh;
+
+  /* default: no scroll on desktop (we scale the stage) */
   overflow: hidden;
 
   background-repeat: no-repeat;
@@ -11,19 +12,30 @@
   background-size: cover;
 }
 
+/* Desktop/laptop: centered scaled stage */
 .stage {
   position: absolute;
+  top: 50%;
+  left: 50%;
   transform-origin: center center;
 }
 
-.stageFixed {
-  top: 50%;
-  left: 50%;
-}
+/* Tablet + Mobile: fluid layout, allow scrolling when content is taller */
+@media (max-width: 1023px) {
+  .viewport {
+    height: auto;
+    min-height: 100svh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
 
-/* Fluid stage used on tablet/mobile for UX-first layout */
-.stageFluid {
-  top: 0;
-  left: 0;
-  position: relative;
+  .stage {
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: none !important;
+  }
 }

@@ -8,20 +8,6 @@
   gap: 20px;
 }
 
-@media (max-width: 1023px){
-  .wrap{
-    padding: calc(env(safe-area-inset-top) + 18px) 18px
-      calc(env(safe-area-inset-bottom) + 18px);
-  }
-  .title{ font-size: 36px; }
-  .desc{ font-size: 16px; }
-  .primaryBtn{ width: 100%; max-width: 360px; }
-}
-
-@media (max-width: 478px){
-  .title{ font-size: 32px; }
-}
-
 .title{
   margin: 0;
   font-size: 56px;

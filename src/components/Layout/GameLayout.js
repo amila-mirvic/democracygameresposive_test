@@ -3,28 +3,28 @@ import styles from "./GameLayout.module.css";
 
 const BASE_W = 1920;
 const BASE_H = 1080;
-
-// Breakpoints (matching the provided spec)
-const BP_TABLET_MAX = 1023;
+const MOBILE_BP = 1024;
 
 export default function GameLayout({ backgroundImage, children }) {
   const [scale, setScale] = React.useState(1);
-  const [isFluid, setIsFluid] = React.useState(false);
+  const [isMobile, setIsMobile] = React.useState(
+    typeof window !== "undefined" ? window.innerWidth < MOBILE_BP : false
+  );
 
   React.useEffect(() => {
     const calc = () => {
       const w = window.innerWidth;
       const h = window.innerHeight;
 
-      // ✅ Desktop/laptop keep the exact 1920×1080 layout (scaled to fit)
-      // ✅ Tablet/mobile switch to a fluid stage so we can optimize UX
-      const fluid = w <= BP_TABLET_MAX;
-      setIsFluid(fluid);
+      const mobile = w < MOBILE_BP;
+      setIsMobile(mobile);
 
-      if (!fluid) {
+      // Desktop/laptop: keep the exact same 1920x1080 stage, just scaled to fit.
+      if (!mobile) {
         setScale(Math.min(w / BASE_W, h / BASE_H));
       }
     };
+
     calc();
     window.addEventListener("resize", calc);
     return () => window.removeEventListener("resize", calc);
@@ -33,17 +33,25 @@ export default function GameLayout({ backgroundImage, children }) {
   return (
     <div
       className={styles.viewport}
+      data-mode={isMobile ? "fluid" : "fixed"}
       style={{
         backgroundImage: backgroundImage ? `url(${backgroundImage})` : "none",
       }}
     >
       <div
-        className={[styles.stage, isFluid ? styles.stageFluid : styles.stageFixed].join(" ")}
-        style={{
-          width: isFluid ? "100%" : BASE_W,
-          height: isFluid ? "100%" : BASE_H,
-          transform: isFluid ? "none" : `translate(-50%, -50%) scale(${scale})`,
-        }}
+        className={styles.stage}
+        style={
+          isMobile
+            ? {
+                width: "100%",
+                minHeight: "100svh",
+              }
+            : {
+                width: BASE_W,
+                height: BASE_H,
+                transform: `translate(-50%, -50%) scale(${scale})`,
+              }
+        }
       >
         {children}
       </div>

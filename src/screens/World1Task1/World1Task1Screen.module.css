@@ -1,6 +1,7 @@
 .screen {
   width: 100%;
-  height: 100vh;
+  height: 100%;
+  min-height: 100svh;
   background-image: var(--bg);
   background-size: cover;
   background-position: center;
@@ -11,7 +12,8 @@
 
 .overlay {
   width: 100%;
-  height: 100vh;
+  height: 100%;
+  min-height: 100svh;
   position: relative;
   overflow: hidden;
 }
@@ -454,81 +456,88 @@
   }
 }
 
-/* ------------------------------------------------ */
-/* RESPONSIVE (tablet/mobile) */
 
+/* =========================
+   RESPONSIVE (Tablet/Mobile)
+   ========================= */
 @media (max-width: 1023px) {
-  .screen,
-  .overlay {
-    height: 100%;
-  }
-
-  .topBar {
-    height: 72px;
-    padding: 0 16px;
-  }
-
-  .topLeft {
-    font-size: 22px;
-  }
-
-  .statIcon {
-    width: 38px;
-    height: 38px;
-  }
-
-  .statNum {
-    font-size: 22px;
-  }
-
-  .statementCard {
-    top: 110px;
-    width: min(92vw, 680px);
+  .screen {
     height: auto;
-    padding: 20px 18px;
+    min-height: 100svh;
+    overflow: visible;
+  }
+
+  .overlay {
+    height: auto;
+    min-height: 100svh;
+    overflow: visible;
+  }
+
+  /* Top HUD breathing room for notches */
+  .topBar {
+    top: calc(10px + env(safe-area-inset-top));
+    left: 12px;
+    right: 12px;
+  }
+
+  /* Reflow from absolute to column layout */
+  .statementCard {
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: none;
+    width: min(92vw, 640px);
+    height: auto;
+    min-height: 200px;
+    padding: 18px 18px;
+    margin: calc(86px + env(safe-area-inset-top)) auto 14px;
   }
 
   .statementText {
-    font-size: 18px;
+    font-size: 22px;
+    line-height: 1.25;
   }
 
   .whyBtn {
-    right: -10px;
-    top: -10px;
-    width: 60px;
-    height: 60px;
+    top: 10px;
+    right: 10px;
+    transform: none;
   }
 
-  .answerRow {
-    bottom: 18px;
-    gap: 18px;
+  .buttonRow {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    transform: none;
+    width: min(92vw, 640px);
+    margin: 0 auto;
+    padding-bottom: calc(14px + env(safe-area-inset-bottom));
   }
 
   .answerBtn {
-    width: 140px;
-    height: 96px;
+    width: 86px;
+    height: 86px;
   }
-}
 
-@media (max-width: 768px) {
-  .statementCard {
-    top: 96px;
+  /* Popup must fit + scroll */
+  .popupCard {
+    width: min(92vw, 680px);
+    max-height: calc(100svh - 36px);
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 18px 18px 16px;
   }
-  .answerBtn {
-    width: 120px;
-    height: 84px;
-  }
-}
 
-@media (max-width: 478px) {
-  .topLeft {
-    font-size: 18px;
+  .popupText {
+    font-size: 20px;
+    line-height: 1.3;
   }
-  .statementText {
-    font-size: 16px;
-  }
-  .answerBtn {
-    width: 110px;
-    height: 78px;
+
+  /* End card also should never overflow */
+  .endCard {
+    width: min(92vw, 720px);
+    max-height: calc(100svh - 36px);
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
   }
 }

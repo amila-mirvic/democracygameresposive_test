@@ -8,22 +8,6 @@
   gap: 20px;
 }
 
-@media (max-width: 1023px){
-  .wrap{
-    padding: calc(env(safe-area-inset-top) + 18px) 18px
-      calc(env(safe-area-inset-bottom) + 18px);
-  }
-
-  .taskTitle{ font-size: 22px; }
-  .intro{ font-size: 15px; }
-}
-
-@media (max-width: 478px){
-  .taskTitle{ font-size: 20px; }
-  .primaryBtn{ width: 100%; }
-  .footer{ justify-content: stretch; }
-}
-
 .header{
   display: flex;
   align-items: center;

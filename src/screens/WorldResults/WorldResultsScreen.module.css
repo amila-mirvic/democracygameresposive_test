@@ -8,20 +8,6 @@
   gap: 18px;
 }
 
-@media (max-width: 1023px){
-  .wrap{
-    padding: calc(env(safe-area-inset-top) + 18px) 18px
-      calc(env(safe-area-inset-bottom) + 18px);
-  }
-  .role{ font-size: 34px; }
-  .actions{ justify-content: center; flex-wrap: wrap; }
-}
-
-@media (max-width: 478px){
-  .card{ padding: 20px; }
-  .role{ font-size: 30px; }
-}
-
 .backBtn{
   width: 160px;
   height: 40px;
