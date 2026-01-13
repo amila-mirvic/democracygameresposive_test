@@ -1,0 +1,29 @@
+.viewport {
+  position: relative;
+  width: 100vw;
+  /* Use small-viewport units on mobile so browser UI doesn't crop content */
+  height: 100svh;
+  min-height: 100vh;
+  overflow: hidden;
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.stage {
+  position: absolute;
+  transform-origin: center center;
+}
+
+.stageFixed {
+  top: 50%;
+  left: 50%;
+}
+
+/* Fluid stage used on tablet/mobile for UX-first layout */
+.stageFluid {
+  top: 0;
+  left: 0;
+  position: relative;
+}
