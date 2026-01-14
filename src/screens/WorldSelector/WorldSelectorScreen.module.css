@@ -1,9 +1,8 @@
+/* MOBILE-FIRST containers: enable scroll and avoid trapped UI */
 .screen {
   width: 100%;
-  height: 100%;
   min-height: 100svh;
-  min-height: 100%;
-  min-height: 100svh;
+  height: auto;
 
   background-image: var(--bg);
   background-size: cover;
@@ -11,18 +10,14 @@
   background-repeat: no-repeat;
 
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .overlay {
   width: 100%;
-  height: 100%;
   min-height: 100svh;
-  min-height: 100%;
-  min-height: 100svh;
-
   position: relative;
-  overflow: hidden;
 }
 
 /* Title */
@@ -355,49 +350,27 @@
   50%, 100% { opacity: 0; }
 }
 
+@media (min-width: 1280px) {
+.screen {
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
 
-@media (max-width: 1023px) {
-  .screen {
-    height: auto;
-    min-height: 100svh;
-    overflow: visible;
-    padding: 12px 12px calc(14px + env(safe-area-inset-bottom));
-  }
+  background-image: var(--bg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 
-  .overlay {
-    position: relative;
-    width: 100%;
-    height: auto;
-    min-height: 100svh;
-    overflow: visible;
-  }
+  position: relative;
+  overflow: hidden;
+}
 
-  .card {
-    width: 100%;
-    height: auto;
-    max-height: none;
-    display: flex;
-    flex-direction: column;
-    grid-template-columns: none;
-    gap: 14px;
-    padding: 18px 16px 16px;
-    margin: calc(10px + env(safe-area-inset-top)) auto 0;
-  }
+.overlay {
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
 
-  .preview {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 9;
-  }
-
-  .textArea {
-    max-height: none;
-  }
-
-  .playBtn {
-    position: sticky;
-    bottom: env(safe-area-inset-bottom);
-    margin-top: 10px;
-    width: 100%;
-  }
+  position: relative;
+  overflow: hidden;
+}
 }

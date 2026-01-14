@@ -1,48 +1,104 @@
-.screen {
+
+/* MOBILE-FIRST RESPONSIVE LAYOUT (preserves desktop identity at 1280px+) */
+
+.screen{
   width: 100%;
-  height: 100%;
   min-height: 100svh;
+  height: auto;
 
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
-.overlay {
-  width: 100%;
-  height: 100%;
+.overlay{
   min-height: 100svh;
   position: relative;
+
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 3vw, 22px);
+  padding: clamp(16px, 4vw, 28px);
 }
 
-/* ------------------------------------------------ */
-/* HERO CARD */
-.heroCard {
-  position: absolute;
-  left: 140px;
-  top: 100px;
-  width: 840px;
+/* Card becomes normal flow on small screens (no overlap / allows scroll) */
+.heroCard{
+  position: relative;
+  width: 100%;
+  max-width: 920px;
+  margin: 0 auto;
 
-  border-radius: 32px;
+  border-radius: 24px;
   background: rgba(202, 88, 64, 0.8);
   box-shadow: 0 18px 50px rgba(202, 88, 64, 0.35);
 
-  padding: 54px;
-  padding-bottom: 130px; /* prostor za PLAY button */
+  padding: clamp(18px, 4vw, 42px);
+  padding-bottom: clamp(18px, 4vw, 42px);
 
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: flex-start;
-  gap: 18px;
 
   overflow: visible;
-
   animation: cardIn 550ms ease-out both;
 }
+
+/* PLAY becomes in-flow and always reachable */
+.playBtn{
+  position: relative;
+  left: auto;
+  bottom: auto;
+  transform: none;
+
+  width: min(560px, 100%);
+  height: max(56px, 44px);
+  margin: clamp(14px, 3vw, 22px) auto 0;
+
+  border-radius: 18px;
+  border: none;
+  background: #ffffff;
+
+  font-size: clamp(18px, 5vw, 28px);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+/* Characters stack below card, become touch-friendly */
+.charactersArea{
+  position: relative;
+  width: 100%;
+  max-width: 920px;
+  margin: 0 auto;
+
+  display: flex;
+  gap: clamp(10px, 3vw, 18px);
+  align-items: flex-end;
+  justify-content: center;
+
+  height: auto;
+  pointer-events: auto;
+}
+
+.hitboxLayer{ display:none; }
+
+.characterBtn{
+  position: relative;
+  width: 48%;
+  max-width: 360px;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+
+/* ------------------------------------------------ */
+/* HERO CARD */
 
 @keyframes cardIn {
   from {
@@ -130,78 +186,14 @@
 
 /* ------------------------------------------------ */
 /* PLAY BUTTON (WELCOME STYLE) */
-.playBtn {
-  position: absolute;
-  left: 50%;
-  bottom: -48px;
 
-  transform: translateX(-50%) scale(1);
 
-  width: 560px;
-  height: 96px;
 
-  border-radius: 18px;
-  border: none;
-  background: #ffffff;
 
-  font-size: 34px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  color: #ca5840;
-
-  cursor: pointer;
-
-  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.3);
-
-  transition:
-    transform 520ms cubic-bezier(0.2, 0.8, 0.2, 1),
-    box-shadow 520ms cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-.playBtn:hover {
-  transform: translateX(-50%) scale(1.1);
-  box-shadow: 0 22px 40px rgba(0, 0, 0, 0.35);
-}
-
-.playBtn:active {
-  transform: translateX(-50%) scale(0.98);
-}
-
-.playBtn:disabled {
-  cursor: not-allowed;
-  opacity: 0.6;
-  transform: translateX(-50%) scale(1);
-  box-shadow: 0 12px 22px rgba(0, 0, 0, 0.2);
-}
-
-.playBtn:disabled:hover {
-  transform: translateX(-50%) scale(1);
-  box-shadow: 0 12px 22px rgba(0, 0, 0, 0.2);
-}
 
 /* ------------------------------------------------ */
 /* CHARACTERS AREA */
-.charactersArea {
-  position: absolute;
-  right: 100px;
-  top: 50px;
 
-  width: 760px;
-  height: 860px;
-
-  pointer-events: none;
-}
-
-.characterBtn {
-  position: absolute;
-  border: none;
-  background: transparent;
-  padding: 0;
-  margin: 0;
-  cursor: pointer;
-  pointer-events: auto;
-  opacity: 0.8;
-}
 
 /* BASE POSITIONS */
 .femaleBtn {
@@ -268,33 +260,9 @@
 
 /* ------------------------------------------------ */
 /* HITBOXES */
-.hitboxLayer {
-  position: absolute;
-  inset: 0;
-  z-index: 999;
-  pointer-events: none;
-}
 
-.hitbox {
-  position: absolute;
-  background: transparent;
-  border: none;
-  pointer-events: auto;
-}
 
-.femaleHitbox {
-  left: 70px;
-  top: 0;
-  width: 330px;
-  height: 860px;
-}
 
-.maleHitbox {
-  left: 380px;
-  top: 0;
-  width: 330px;
-  height: 860px;
-}
 
 /* ------------------------------------------------ */
 /* CARET */
@@ -330,64 +298,124 @@
   50% { transform: translateY(-10px); }
 }
 
+@media (min-width: 1280px) {
+.screen {
+  width: 100%;
+  height: 100vh;
 
-/* =========================
-   RESPONSIVE (Tablet/Mobile)
-   ========================= */
-@media (max-width: 1023px) {
-  .screen {
-    height: auto;
-    min-height: 100svh;
-    overflow-x: hidden;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: calc(18px + env(safe-area-inset-bottom));
-  }
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 
-  .overlay {
-    height: auto;
-    min-height: 100svh;
-    overflow: visible;
-    padding: 14px 14px 0;
-  }
+  position: relative;
+  overflow: hidden;
+}
 
-  /* make the long intro + form scrollable */
-  .descBox {
-    width: 100%;
-    max-width: 720px;
-    height: auto;
-    max-height: none;
-    padding: 18px 16px;
-  }
+.overlay {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+}
 
-  .nameLabel {
-    margin-top: 14px;
-  }
+.heroCard {
+  position: absolute;
+  left: 140px;
+  top: 100px;
+  width: 840px;
 
-  .nameInput {
-    width: 100%;
-  }
+  border-radius: 32px;
+  background: rgba(202, 88, 64, 0.8);
+  box-shadow: 0 18px 50px rgba(202, 88, 64, 0.35);
 
-  /* character selector: keep touch-friendly */
-  .charPicker {
-    width: 100%;
-    max-width: 720px;
-    height: auto;
-  }
+  padding: 54px;
+  padding-bottom: 130px; /* prostor za PLAY button */
 
-  .characterImg {
-    height: min(420px, 44vh);
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 18px;
 
-  /* PLAY must always be reachable */
-  .playBtn {
-    position: sticky;
-    left: 0;
-    bottom: env(safe-area-inset-bottom);
-    transform: none;
-    width: 100%;
-    max-width: 720px;
-    margin: 14px auto 0;
-    display: block;
-  }
+  overflow: visible;
+
+  animation: cardIn 550ms ease-out both;
+}
+
+.playBtn {
+  position: absolute;
+  left: 50%;
+  bottom: -48px;
+
+  transform: translateX(-50%) scale(1);
+
+  width: 560px;
+  height: 96px;
+
+  border-radius: 18px;
+  border: none;
+  background: #ffffff;
+
+  font-size: 34px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #ca5840;
+
+  cursor: pointer;
+
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.3);
+
+  transition:
+    transform 520ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 520ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.charactersArea {
+  position: absolute;
+  right: 100px;
+  top: 50px;
+
+  width: 760px;
+  height: 860px;
+
+  pointer-events: none;
+}
+
+.characterBtn {
+  position: absolute;
+  border: none;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  pointer-events: auto;
+  opacity: 0.8;
+}
+
+.hitboxLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none;
+}
+
+.hitbox {
+  position: absolute;
+  background: transparent;
+  border: none;
+  pointer-events: auto;
+}
+
+.femaleHitbox {
+  left: 70px;
+  top: 0;
+  width: 330px;
+  height: 860px;
+}
+
+.maleHitbox {
+  left: 380px;
+  top: 0;
+  width: 330px;
+  height: 860px;
+}
 }

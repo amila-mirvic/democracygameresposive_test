@@ -1,35 +1,68 @@
-.wrapper {
+
+/* MOBILE-FIRST layout (desktop preserved at 1280px+) */
+.wrapper{
   position: relative;
   width: 100%;
-  height: 100%;
-}
-
-/* ✅ crveni box */
-.heroCard {
-  z-index: 2;
-  position: absolute;
-  left: 140px;
-  top: 250px;
-  width: 840px;
-  height: 560px;
-
-  border-radius: 32px;
-  background: rgba(202, 88, 64, 0.8);
-  box-shadow: 0 18px 50px rgba(202, 88, 64, 0.35);
-
-  padding: 54px 54px 46px 54px;
+  min-height: 100svh;
+  overflow-x: hidden;
+  overflow-y: auto;
 
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 18px;
-
-  overflow: visible;
-
-  /* ✅ entrance animacija */
-  animation: cardIn 550ms ease-out both;
+  gap: clamp(14px, 3vw, 22px);
+  padding: clamp(16px, 4vw, 28px);
 }
+
+.logo{
+  width: min(320px, 80vw);
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.heroCard{
+  position: relative;
+  width: 100%;
+  max-width: 920px;
+  margin: 0 auto;
+
+  border-radius: 24px;
+  background: rgba(202, 88, 64, 0.8);
+  box-shadow: 0 18px 50px rgba(202, 88, 64, 0.35);
+
+  padding: clamp(18px, 4vw, 42px);
+}
+
+.playBtn{
+  position: relative;
+  left: auto;
+  bottom: auto;
+  transform: none;
+
+  width: min(560px, 100%);
+  height: max(56px, 44px);
+  margin: clamp(14px, 3vw, 22px) auto 0;
+}
+
+.characters{
+  position: relative;
+  width: 100%;
+  max-width: 920px;
+  margin: 0 auto;
+  height: auto;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(10px, 3vw, 18px);
+}
+
+@media (min-width: 768px) and (max-width: 1279px){
+  .wrapper{ padding: 32px 36px; }
+  .logo{ width: min(380px, 50vw); }
+}
+
+/* ✅ crveni box */
 
 @keyframes cardIn {
   from {
@@ -43,14 +76,6 @@
 }
 
 /* ✅ logo */
-.logo {
-  width: 400px;
-  height: auto;
-  display: block;
-  margin-bottom: 6px;
-
-  animation: logoGlow 3.2s ease-in-out infinite;
-}
 
 @keyframes logoGlow {
   0%,
@@ -79,6 +104,73 @@
 }
 
 /* ✅ button */
+
+
+
+/* ✅ both.png prelazi preko boxa + float animacija bez konflikta */
+/* koristi varijable da float ne pregazi translateX/Y */
+
+@keyframes floatY {
+  0%,
+  100% {
+    transform: translateX(var(--charX)) translateY(var(--charY));
+  }
+  50% {
+    transform: translateX(var(--charX)) translateY(calc(var(--charY) - 10px));
+  }
+}
+
+@media (min-width: 1280px) {
+.wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.heroCard {
+  position: absolute;
+  left: 140px;
+  top: 250px;
+  width: 840px;
+  height: 560px;
+
+  border-radius: 32px;
+  background: rgba(202, 88, 64, 0.8);
+  box-shadow: 0 18px 50px rgba(202, 88, 64, 0.35);
+
+  padding: 54px 54px 46px 54px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+
+  overflow: visible;
+
+  /* ✅ entrance animacija */
+  animation: cardIn 550ms ease-out both;
+}
+
+.characters {
+  position: absolute;
+  right: 120px;
+  bottom: 0;
+
+  width: 980px;
+  height: auto;
+
+  /* ✅ tvoj “static” pomak */
+  --charX: 50px;
+  --charY: 10px;
+
+  transform: translateX(var(--charX)) translateY(var(--charY));
+  pointer-events: none;
+  user-select: none;
+
+  animation: floatY 4.5s ease-in-out infinite;
+}
+
 .playBtn {
   position: absolute;
   left: 50%;
@@ -109,108 +201,12 @@
   will-change: transform;
 }
 
-.playBtn:hover {
-  transform: translateX(-50%) scale(1.1);
-  box-shadow: 0 22px 40px rgba(0, 0, 0, 0.35);
-}
-
-.playBtn:active {
-  transform: translateX(-50%) scale(0.98);
-}
-
-/* ✅ both.png prelazi preko boxa + float animacija bez konflikta */
-/* koristi varijable da float ne pregazi translateX/Y */
-.characters {
-  z-index: 1;
-  position: absolute;
-  right: 120px;
-  bottom: 0;
-
-  width: 980px;
+.logo {
+  width: 400px;
   height: auto;
+  display: block;
+  margin-bottom: 6px;
 
-  /* ✅ tvoj “static” pomak */
-  --charX: 50px;
-  --charY: 10px;
-
-  transform: translateX(var(--charX)) translateY(var(--charY));
-  pointer-events: none;
-  user-select: none;
-
-  animation: floatY 4.5s ease-in-out infinite;
+  animation: logoGlow 3.2s ease-in-out infinite;
 }
-
-@keyframes floatY {
-  0%,
-  100% {
-    transform: translateX(var(--charX)) translateY(var(--charY));
-  }
-  50% {
-    transform: translateX(var(--charX)) translateY(calc(var(--charY) - 10px));
-  }
-}
-
-
-/* =========================
-   RESPONSIVE FIXES
-   ========================= */
-
-/* Smaller desktop / laptop (keep same layout, just prevent overlaps) */
-@media (max-width: 1440px) and (min-width: 1024px) {
-  .heroCard {
-    left: 110px;
-    top: 220px;
-    width: 780px;
-    height: 560px;
-  }
-
-  .characters {
-    right: 70px;
-    width: 880px;
-    --charX: 20px;
-    --charY: 8px;
-  }
-}
-
-/* Tablet + Mobile: make the screen scrollable & playable */
-@media (max-width: 1023px) {
-  .wrapper {
-    height: auto;
-    min-height: 100svh;
-    padding: 18px 14px calc(18px + env(safe-area-inset-bottom));
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 14px;
-  }
-
-  .heroCard {
-    position: relative;
-    left: auto;
-    top: auto;
-    width: min(620px, 100%);
-    height: auto;
-    max-height: calc(100svh - 180px);
-    padding: 18px 16px 16px;
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  /* keep PLAY always reachable */
-  .playButton {
-    position: sticky;
-    bottom: 0;
-    margin-top: 16px;
-    z-index: 3;
-  }
-
-  .characters {
-    position: relative;
-    right: auto;
-    bottom: auto;
-    width: min(520px, 92vw);
-    transform: none !important;
-    animation: none;
-    opacity: 0.98;
-  }
 }

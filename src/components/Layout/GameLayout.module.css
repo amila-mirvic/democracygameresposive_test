@@ -1,41 +1,44 @@
+/* Mobile-first:
+   - allow vertical scrolling when height is constrained
+   - prevent horizontal overflow
+   - keep 1280px+ identical to original centered "stage" look
+*/
 .viewport {
   position: relative;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
   min-height: 100svh;
 
-  /* default: no scroll on desktop (we scale the stage) */
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
 }
 
-/* Desktop/laptop: centered scaled stage */
+/* Default: top-aligned stage so content can be reached via scroll */
 .stage {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform-origin: center center;
+  position: relative;
+  width: 1920px;
+  height: 1080px;
+  transform-origin: top center;
+  margin: 0 auto;
 }
 
-/* Tablet + Mobile: fluid layout, allow scrolling when content is taller */
-@media (max-width: 1023px) {
+/* Large desktop: preserve original behavior (centered, no scrolling) */
+@media (min-width: 1280px) {
   .viewport {
-    height: auto;
-    min-height: 100svh;
-    overflow-x: hidden;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    padding-top: env(safe-area-inset-top);
-    padding-bottom: env(safe-area-inset-bottom);
+    width: 100vw;
+    height: 100vh;
+    min-height: 100vh;
+    overflow: hidden;
   }
 
   .stage {
-    position: relative;
-    top: 0;
-    left: 0;
-    transform: none !important;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-origin: center center;
+    margin: 0;
   }
 }

@@ -30,3 +30,14 @@ textarea,
 select {
   font: inherit;
 }
+
+
+/* Responsive viewport safety */
+body {
+  min-height: 100svh;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100svh;
+}

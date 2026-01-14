@@ -90,3 +90,22 @@
   cursor: pointer;
 }
 .primaryBtn:hover{ background: rgba(255,255,255,0.14); }
+
+
+/* Responsive adjustments inside scaled GameLayout */
+@media (max-width: 600px) {
+  .wrap{
+    padding: 18px 16px;
+    gap: 14px;
+  }
+  .primaryBtn{
+    width: 100%;
+    min-height: 44px;
+  }
+  .backBtn{
+    min-height: 44px;
+  }
+}
+@media (min-width: 601px) and (max-width: 1023px) {
+  .wrap{ padding: 28px 28px; }
+}
